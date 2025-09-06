@@ -77,4 +77,29 @@ cat > progress.md << 'EOF'
   - `ADMIN_USERNAME=admin`
   - `ADMIN_PASSWORD=supersecret123`
 - Known bug: React UI shows white text on white background for session IDs (fixed via styling).
+
+## Milestone A — Backend Hardening ✅ (Completed)
+**Date:** $(date +%Y-%m-%d)
+
+- Enforce stricter input validation (user_id/email) ✅
+- Error handling & 404s for missing sessions ✅
+- Structured error codes returned by all endpoints ✅
+- HTTPS in production via Render’s managed TLS ✅
+
+**Notes:**
+- `/kyc/start` now validates input and supports email→user mapping.
+- All endpoints return `{ error, code }` consistently for failures.
+- No code-based redirects needed; Render terminates TLS at the edge.
+
+
+## 🔐 Repo & GitHub Setup
+
+- Added `.gitignore` to keep repo clean.
+- Switched from HTTPS → SSH for GitHub authentication.
+- Generated and registered SSH key (`id_ed25519`) with GitHub.
+- Verified connection: `ssh -T git@github.com` works without password.
+
+✅ This ensures smooth commits/pushes without entering credentials each time.
+
+
 EOF
