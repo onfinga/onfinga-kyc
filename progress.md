@@ -1,4 +1,3 @@
-cat > progress.md << 'EOF'
 # Onfinga KYC – Progress Tracker
 
 📆 **Last Updated:** 2025-09-05  
@@ -79,7 +78,7 @@ cat > progress.md << 'EOF'
 - Known bug: React UI shows white text on white background for session IDs (fixed via styling).
 
 ## Milestone A — Backend Hardening ✅ (Completed)
-**Date:** $(date +%Y-%m-%d)
+**Date:** 2025-09-05
 
 - Enforce stricter input validation (user_id/email) ✅
 - Error handling & 404s for missing sessions ✅
@@ -91,27 +90,17 @@ cat > progress.md << 'EOF'
 - All endpoints return `{ error, code }` consistently for failures.
 - No code-based redirects needed; Render terminates TLS at the edge.
 
-
-## 🔐 Repo & GitHub Setup
-
-- Added `.gitignore` to keep repo clean.
-- Switched from HTTPS → SSH for GitHub authentication.
-- Generated and registered SSH key (`id_ed25519`) with GitHub.
-- Verified connection: `ssh -T git@github.com` works without password.
-
-✅ This ensures smooth commits/pushes without entering credentials each time.
+---
 
 ## Milestone B — Environment Cleanup ✅ (Completed)
-**Date:** 2025-09-05  
+**Date:** 2025-09-05
 
-- Added `.env.example` to document required variables.  
-- Strengthened `.gitignore` rules (Python, venv, node_modules, OS junk).  
-- Removed hardcoded fallbacks from `config.py` — now requires env vars.  
+- Added `.env.example` to repo.
+- Added `.gitignore` rules for Python, frontend, and OS junk.
+- Removed hardcoded fallbacks from `config.py`.
 
-**Notes:**  
-- Project is now environment-agnostic: no accidental secrets in repo.  
-- Developers must copy `.env.example` → `.env` and fill in values.  
-- Safer for deployment on Render and when collaborating.  
+**Notes:**
+- Safer environment handling; prevents secrets from leaking into repo.
 
 ---
 
@@ -120,9 +109,3 @@ cat > progress.md << 'EOF'
 - `milestone-backend-hardening`
 - `milestone-ssh-setup`
 - `milestone-env-cleanup`
-
-echo -e "\n---\n\n## 🏷️ Git Tags\n\n- \`milestone-backend-hardening\`\n-\`milestone-ssh-setup\`\n- \`milestone-env-cleanup\`" >> progress.md
-
-
-
-EOF
