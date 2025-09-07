@@ -101,10 +101,27 @@
 - `.env.example` guides devs to set up `.env` locally.  
 - Safer for deployment on Render and when collaborating.  
 
+
 ---
 
-## 🏷️ Git Tags
+## Milestone C — Production Readiness ✅ (Completed)  
+**Date:** 2025-09-05  
 
-- `milestone-backend-hardening`
-- `milestone-ssh-setup`
-- `milestone-env-cleanup`
+- Enabled CORS restricted to `FRONTEND_ORIGIN` only.  
+- Added runtime checks in `__init__.py` to ensure `SECRET_KEY` and `DATABASE_URL` are present.  
+- Confirmed `.env` variables load correctly in all environments.  
+- Deployment-ready: health check (`/health`) available for Render/GCP load balancers.  
+
+**Notes:**  
+- No broad `*` origins in CORS — restricted to frontend only.  
+- Secrets are enforced at startup; app won’t run with missing env vars.  
+- Admin panel remains optional, won’t break startup if not configured.  
+
+## 🏷️ Git Tags  
+- `milestone-backend-hardening`  
+- `milestone-ssh-setup`  
+- `milestone-env-cleanup`  
+- `milestone-production-readiness` 
+
+---
+
