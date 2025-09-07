@@ -113,5 +113,16 @@ cat > progress.md << 'EOF'
 - Developers must copy `.env.example` → `.env` and fill in values.  
 - Safer for deployment on Render and when collaborating.  
 
+---
+
+## 🏷️ Git Tags
+
+- `milestone-backend-hardening`
+- `milestone-ssh-setup`
+- `milestone-env-cleanup`
+
+echo -e "\n---\n\n## 🏷️ Git Tags\n\n- \`milestone-backend-hardening\`\n-\`milestone-ssh-setup\`\n- \`milestone-env-cleanup\`" >> progress.md
+
+
 
 EOF
