@@ -1,6 +1,6 @@
 # Onfinga KYC – Progress Tracker
 
-📆 **Last Updated:** 2025-09-05  
+📆 **Last Updated:** 2025-09-07
 
 ---
 
