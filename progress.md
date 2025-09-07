@@ -101,5 +101,17 @@ cat > progress.md << 'EOF'
 
 ✅ This ensures smooth commits/pushes without entering credentials each time.
 
+## Milestone B — Environment Cleanup ✅ (Completed)
+**Date:** 2025-09-05  
+
+- Added `.env.example` to document required variables.  
+- Strengthened `.gitignore` rules (Python, venv, node_modules, OS junk).  
+- Removed hardcoded fallbacks from `config.py` — now requires env vars.  
+
+**Notes:**  
+- Project is now environment-agnostic: no accidental secrets in repo.  
+- Developers must copy `.env.example` → `.env` and fill in values.  
+- Safer for deployment on Render and when collaborating.  
+
 
 EOF
