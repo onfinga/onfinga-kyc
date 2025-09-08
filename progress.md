@@ -1,10 +1,11 @@
+cat > progress.md << 'EOF'
 # Onfinga KYC – Progress Tracker
 
-📆 **Last Updated:** 2025-09-07
+📆 **Last Updated:** 2025-09-09
 
 ---
 
-## ✅ Completed Milestones
+## ✅ Completed Phases
 
 ### Phase 1: Backend Core (Flask + PostgreSQL)
 - Set up Flask backend with factory pattern (`create_app`).
@@ -45,14 +46,12 @@
 ---
 
 ## 🚧 In Progress
-
 - Migration fixes for `user_id` foreign key refactor.
 - Deployment pipeline setup on Render.
 
 ---
 
-## 🎯 Next Milestones
-
+## 🎯 Next Phases
 1. **Deployment**
    - Debug Render build pipeline.
    - Ensure `requirements.txt` + `render.yaml` configured properly.
@@ -65,7 +64,6 @@
 ---
 
 ## 📌 Notes
-
 - Placeholder user in DB: `placeholder@onfinga.com`.
 - Admin credentials in `.env`:
   - `ADMIN_USERNAME=admin`
@@ -74,54 +72,38 @@
 
 ---
 
-## Milestone A — Backend Hardening ✅ (Completed)
-**Date:** 2025-09-05  
+## 🏁 Milestones Summary
 
-- Enforce stricter input validation (user_id/email) ✅  
-- Error handling & 404s for missing sessions ✅  
-- Structured error codes returned by all endpoints ✅  
-- HTTPS in production via Render’s managed TLS ✅  
+### Milestone A — Backend Hardening ✅ (2025-09-05)
+- Enforce stricter input validation (user_id/email)  
+- Error handling & 404s for missing sessions  
+- Structured error codes returned by all endpoints  
+- HTTPS in production via Render’s managed TLS  
 
-**Notes:**  
-- `/kyc/start` now validates input and supports email→user mapping.  
-- All endpoints return `{ error, code }` consistently for failures.  
-- No code-based redirects needed; Render terminates TLS at the edge.  
+### Milestone B — Environment Cleanup ✅ (2025-09-05)
+- Added `.env.example` to repo  
+- Added `.gitignore` rules for Python, frontend, and OS junk  
+- Removed hardcoded fallbacks from `config.py`  
 
----
+### Milestone C — Production Readiness ✅ (2025-09-05)
+- Restricted CORS to `FRONTEND_ORIGIN` only  
+- Runtime checks for env vars (`SECRET_KEY`, `DATABASE_URL`)  
+- Health check endpoint (`/health`) added  
+- Confirmed environment loads correctly  
 
-## Milestone B — Environment Cleanup ✅ (Completed)
-**Date:** 2025-09-05  
-
-- Added `.env.example` to repo.  
-- Added `.gitignore` rules for Python, frontend, and OS junk.  
-- Removed hardcoded fallbacks from `config.py`.  
-
-**Notes:**  
-- Project is now environment-agnostic: no accidental secrets in repo.  
-- `.env.example` guides devs to set up `.env` locally.  
-- Safer for deployment on Render and when collaborating.  
-
+### Milestone D — MVP Validation 🚧 (Pending)
+- End-to-end tested user journey:  
+  - Email → KYC session → Admin approval → Status reflected in frontend  
+- Frontend error handling in place  
+- Smooth demo flow for clients  
 
 ---
 
-## Milestone C — Production Readiness ✅ (Completed)  
-**Date:** 2025-09-05  
-
-- Enabled CORS restricted to `FRONTEND_ORIGIN` only.  
-- Added runtime checks in `__init__.py` to ensure `SECRET_KEY` and `DATABASE_URL` are present.  
-- Confirmed `.env` variables load correctly in all environments.  
-- Deployment-ready: health check (`/health`) available for Render/GCP load balancers.  
-
-**Notes:**  
-- No broad `*` origins in CORS — restricted to frontend only.  
-- Secrets are enforced at startup; app won’t run with missing env vars.  
-- Admin panel remains optional, won’t break startup if not configured.  
-
-## 🏷️ Git Tags  
+## 🏷️ Git Tags
 - `milestone-backend-hardening`  
 - `milestone-ssh-setup`  
 - `milestone-env-cleanup`  
-- `milestone-production-readiness` 
+- `milestone-production-readiness`  
+EOF
 
----
-
+git add progress.md && git commit -m "Update progress tracker with Milestone C completion and structure" && git push

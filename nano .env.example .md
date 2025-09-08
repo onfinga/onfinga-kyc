@@ -1,0 +1,11 @@
+# .env.example
+
+# Database connection string
+DATABASE_URL=postgresql://username:password@localhost:5432/onfinga_kyc_dev
+
+# Flask secret key (use `openssl rand -hex 32` to generate a strong one)
+SECRET_KEY=your-secret-key-here
+
+# Admin login credentials for Flask-Admin
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=supersecret
