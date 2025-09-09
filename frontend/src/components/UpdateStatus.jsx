@@ -1,52 +1,46 @@
-// File: frontend/src/components/UpdateStatus.jsx
-import { useState } from 'react';
+import { useState } from "react";
+import { api } from "../lib/api";
+import Alert from "./Alert";
 
 export default function UpdateStatus({ sessionId }) {
-  const [newStatus, setNewStatus] = useState('approved');
-  const [result, setResult] = useState(null);
+  const [status, setStatus] = useState("approved");
   const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState(null);
 
   const handleUpdate = async () => {
+    setMsg(null);
     if (!sessionId) {
-      setResult({ error: 'Missing session ID' });
+      setMsg({ type: "error", text: "No session selected. Start KYC first." });
       return;
     }
-
     setLoading(true);
     try {
-      const res = await fetch(`http://127.0.0.1:5000/kyc/update/${sessionId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      const data = await res.json();
-      setResult(res.ok ? data : { error: data.error || 'Update failed' });
+      const data = await api.updateStatus(sessionId, status);
+      setMsg({ type: "success", text: `Updated: ${JSON.stringify(data)}` });
     } catch (err) {
-      setResult({ error: err.message });
+      setMsg({ type: "error", text: `${err.message} (code: ${err.code || "unknown"})` });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
     <div className="card">
-      <h2>Simulate Admin Action</h2>
-      <p>Session ID: <strong>{sessionId || 'N/A'}</strong></p>
-      <select value={newStatus} onChange={(e) => setNewStatus(e.target.value)}>
-        <option value="approved">✅ Approve</option>
-        <option value="rejected">❌ Reject</option>
-      </select>
-      <button onClick={handleUpdate} disabled={!sessionId}>
-        Update Status
-      </button>
-
-      {loading ? (
-        <p>Updating...</p>
-      ) : result ? (
-        <pre>{JSON.stringify(result, null, 2)}</pre>
-      ) : null}
+      <h2>Update Status (Test/Admin)</h2>
+      <div style={{ display: "flex", gap: 8 }}>
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          disabled={loading}
+        >
+          <option value="approved">Approve</option>
+          <option value="rejected">Reject</option>
+        </select>
+        <button onClick={handleUpdate} disabled={loading || !sessionId}>
+          {loading ? "Updating…" : "Update"}
+        </button>
+      </div>
+      {msg && <Alert type={msg.type}>{msg.text}</Alert>}
     </div>
   );
 }

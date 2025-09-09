@@ -1,43 +1,53 @@
-// File: frontend/src/components/StartKYC.jsx
-import { useState } from 'react';
+import { useState } from "react";
+import { api } from "../lib/api";
+import Alert from "./Alert";
 
 export default function StartKYC({ onSessionCreated }) {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState(null); // {type: 'error'|'success'|'info', text: string}
 
-  const startKYC = async () => {
+  const handleStart = async () => {
+    setMsg(null);
+    if (!email.trim()) {
+      setMsg({ type: "error", text: "Please enter your email address." });
+      return;
+    }
+    setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/kyc/start', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email })  // ✅ Now using email
+      const data = await api.startKYC(email.trim());
+      onSessionCreated?.(data.session_id);
+      setMsg({
+        type: "success",
+        text: `Session created: ${data.session_id}\nStatus: ${data.status}`,
       });
-
-      const data = await res.json();
-      if (res.ok) {
-        setMessage(`✅ Session started: ${data.session_id}`);
-        onSessionCreated(data.session_id);
-      } else {
-        setMessage(`❌ ${data.error || 'Something went wrong.'}`);
-      }
     } catch (err) {
-      setMessage('❌ Server error: ' + err.message);
+      setMsg({
+        type: "error",
+        text: `${err.message}${err.code ? ` (code: ${err.code})` : ""}`,
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="card">
-      <h2>Start KYC Session</h2>
-      <input
-        type="email"
-        placeholder="Enter user email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <button onClick={startKYC}>Start KYC</button>
-      <p>{message}</p>
+      <h2>Start KYC</h2>
+      <div style={{ display: "flex", gap: 8 }}>
+        <input
+          type="email"
+          placeholder="Enter email e.g. placeholder@onfinga.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ flex: 1 }}
+          disabled={loading}
+        />
+        <button onClick={handleStart} disabled={loading}>
+          {loading ? "Starting…" : "Start"}
+        </button>
+      </div>
+      {msg && <Alert type={msg.type}>{msg.text}</Alert>}
     </div>
   );
 }
