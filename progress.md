@@ -1,7 +1,7 @@
 cat > progress.md << 'EOF'
 # Onfinga KYC – Progress Tracker
 
-📆 **Last Updated:** 2025-09-09
+📆 **Last Updated:** 2025-09-11
 
 ---
 
@@ -91,11 +91,22 @@ cat > progress.md << 'EOF'
 - Health check endpoint (`/health`) added  
 - Confirmed environment loads correctly  
 
-### Milestone D — MVP Validation 🚧 (Pending)
-- End-to-end tested user journey:  
-  - Email → KYC session → Admin approval → Status reflected in frontend  
-- Frontend error handling in place  
-- Smooth demo flow for clients  
+---
+
+## Milestone D — MVP Validation ✅ (Completed)
+**Date:** 2025-09-07
+
+**What works end-to-end**
+- Start KYC by email → creates `KYCSession (pending)`
+- Check status by `session_id`
+- Update status (approve/reject) via endpoint / admin
+- List sessions by `email` or `user_id`
+- React UI: Start, Status, Update flows with clear feedback
+
+**Notes**
+- Admin panel reachable at `/admin` (Basic Auth)
+- CORS restricted to `FRONTEND_ORIGIN`
+- Health check at `/health`
 
 ---
 
