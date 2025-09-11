@@ -115,15 +115,47 @@ def list_kyc_sessions():
         except ValueError:
             return jsonify({"error": "user_id must be an integer.", "code": "invalid_user_id"}), 400
     else:
-        return jsonify({"error": "Provide either 'email' or 'user_id' query param.", "code": "missing_identifier"}), 400
+        return jsonify({
+            "error": "Provide either 'email' or 'user_id' query param.",
+            "code": "missing_identifier"
+        }), 400
 
     sessions = KYCSession.query.filter_by(user_id=resolved_user_id).order_by(KYCSession.created_at.desc()).all()
     return jsonify({
         "user_id": resolved_user_id,
-        "sessions": [{
-            "session_id": s.session_id,
-            "status": s.status,
-            "created_at": (s.created_at.isoformat() if s.created_at else None),
-            "updated_at": (s.updated_at.isoformat() if s.updated_at else None)
-        } for s in sessions]
+        "sessions": [
+            {
+                "session_id": s.session_id,
+                "status": s.status,
+                "created_at": (s.created_at.isoformat() if s.created_at else None),
+                "updated_at": (s.updated_at.isoformat() if s.updated_at else None)
+            } for s in sessions
+        ]
+    }), 200
+# ✅ Affordability check route
+from backend.app.affordability import MOCK_PROFILES, calculate_affordability
+
+@main.route("/kyc/affordability", methods=["POST"])
+def kyc_affordability():
+    data = request.get_json() or {}
+    id_number = data.get("id_number")
+    request_amount = data.get("request_amount")
+
+    if not id_number or not request_amount:
+        return jsonify({"error": "id_number and request_amount required", "code": "missing_fields"}), 400
+
+    try:
+        request_amount = int(request_amount)
+    except ValueError:
+        return jsonify({"error": "request_amount must be an integer", "code": "invalid_amount"}), 400
+
+    profile = MOCK_PROFILES.get(id_number)
+    if not profile:
+        return jsonify({"error": "No profile found for given ID number", "code": "profile_not_found"}), 404
+
+    result = calculate_affordability(profile, request_amount)
+    return jsonify({
+        "id_number": id_number,
+        "request_amount": request_amount,
+        **result
     }), 200
