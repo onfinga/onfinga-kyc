@@ -115,6 +115,76 @@ cat > progress.md << 'EOF'
 - `milestone-ssh-setup`  
 - `milestone-env-cleanup`  
 - `milestone-production-readiness`  
+
+Bridge from internal MVP → market-ready demo, secure first pilot commitments.
+
+---
+
+### ✅ Day 1 – Foundation + Outreach Kickoff
+- [x] Finalize affordability check mock integration (dummy bank data / sandbox).
+- [x] Ensure API outputs `affordability_score` + `decision`.
+- [x] Draft Onfinga KYC 1-pager (problem, solution, BNPL pain, how we help).
+- [ ] Reach out to 10 SME retailers from database (personalized).
+
+---
+
+### ✅ Day 2 – UI/UX Polish + Retailer Engagement
+- [ ] Improve error messages, add branding (logo/colors).
+- [ ] Record 2-min demo video of Onfinga flow.
+- [ ] Share demo video privately with 3–5 friendly retailers, ask for feedback.
+
+---
+
+### ✅ Day 3 – Outreach & Storytelling
+- [ ] Add admin summary view (affordability score + decision).
+- [ ] Prepare slides: “How BNPL retailers lose money” → tie to Onfinga.
+- [ ] Email 20 more SMEs (tweak for verticals).
+- [ ] Reach out to BNPLs (Payflex, PayJustNow) for partnerships.
+
+---
+
+### ✅ Day 4 – Market Validation
+- [ ] Add demo webhook simulation (mock truID call).
+- [ ] Draft data policy (“Onfinga stores zero financial data”).
+- [ ] Book 2–3 SME retailer calls from outreach.
+- [ ] Ask pain questions (defaults, willingness to pay for instant checks).
+
+---
+
+### ✅ Day 5 – Refinement + Scaling Outreach
+- [ ] Polish demo flow (error handling, UX smoothness).
+- [ ] Build landing page (Carrd/Framer).
+- [ ] Bulk outreach to 50 SMEs.
+- [ ] Update CRM sheet (opens, replies, calls booked).
+
+---
+
+### ✅ Day 6 – Pilot Prep
+- [ ] Lock in demo accounts (sandbox).
+- [ ] Run 2–3 live demos with friendly SMEs (Zoom/Loom).
+- [ ] Draft pilot pricing (e.g., R10/check, first 50 free).
+- [ ] Secure first paying pilot.
+
+---
+
+### ✅ Day 7 – Review + Next Sprint Planning
+- [ ] Fix bugs + cleanup.
+- [ ] Write technical doc (how SMEs integrate Onfinga).
+- [ ] Review outreach metrics.
+- [ ] Identify top 5 warmest leads, push to pilot.
+- [ ] Plan Sprint 2 (truID integration + pilot rollouts).
+
+---
+
+### 🏆 Expected Sprint Outcomes
+By Sept 17, 2025 we will have:
+1. Demo-ready product with mock affordability checks.
+2. Clean UI/UX + demo video.
+3. At least 100 SMEs reached out to.
+4. 3–5 discovery calls booked.
+5. 1 pilot partner committed.
+
+
 EOF
 
 git add progress.md && git commit -m "Update progress tracker with Milestone C completion and structure" && git push
